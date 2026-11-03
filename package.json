@@ -1,0 +1,12 @@
+{
+  "name": "fortnite-shop-token",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Fortnite Shop Token Odds Calculator with Edge GEO Radar",
+  "scripts": {
+    "dev": "npx wrangler dev",
+    "tail": "npx wrangler tail",
+    "deploy": "npx wrangler deploy"
+  }
+}
+

@@ -257,6 +257,10 @@ function generateShareCard() {
   const modeText = currentMode === 'solo' ? 'Solo (1 in 700k)' : 'Squad (1 in 175k)';
   const prob = oddsPercentEl.textContent;
   const rank = rankTitleEl.textContent;
+  const currentHost = window.location.origin && window.location.origin !== 'null' ? window.location.origin : 'https://fortniteshoptoken.gg';
+  
+  // Dynamic viral tracking parameter with chest streak preset
+  const shareUrl = `${currentHost}?ref=share_card&from=social&chests=${n}&mode=${currentMode}`;
 
   const cardText = 
 `🏴‍☠️ [Fortnite Pirate Shop Token Odds Report]
@@ -264,7 +268,7 @@ function generateShareCard() {
 🎯 Mode: ${modeText}
 📉 Cumulative Chance: ${prob}
 🤡 Bad-Luck Rank: ${rank}
-💀 Status: Still searching. Calculate your odds: https://fortniteshoptoken.gg`;
+💀 Status: Still searching. Calculate your odds: ${shareUrl}`;
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(cardText).then(() => {
@@ -300,15 +304,246 @@ function showToast(message) {
   }, 3500);
 }
 
+// ==========================================
+// Lightweight Channel Attribution Engine (Inspired by APIVALE)
+// Zero-backend, adblock-resilient first-party touchpoint tracking
+// ==========================================
+const Attribution = {
+  STORAGE_FT_KEY: 'fn_attr_first_touch',
+  STORAGE_LT_KEY: 'fn_attr_last_touch',
+
+  init() {
+    try {
+      const traffic = this.parseTrafficSource();
+      const now = Math.floor(Date.now() / 1000);
+      const landing = `${window.location.pathname}${window.location.search}`;
+
+      // 1. First Touch (Persistent in localStorage, non-destructive)
+      const existingFT = this.getStoredTouch(this.STORAGE_FT_KEY);
+      if (!existingFT && traffic.source) {
+        const ft = {
+          source: traffic.source,
+          medium: traffic.medium,
+          campaign: traffic.campaign,
+          referrer: traffic.referrer,
+          landing,
+          timestamp: now
+        };
+        this.saveTouch(this.STORAGE_FT_KEY, ft);
+      }
+
+      // 2. Last Touch (Updates on explicit campaign or new external source)
+      if (traffic.hasExplicitMarketing || (traffic.source && traffic.source !== 'direct')) {
+        const lt = {
+          source: traffic.source,
+          medium: traffic.medium,
+          campaign: traffic.campaign,
+          referrer: traffic.referrer,
+          landing,
+          timestamp: now
+        };
+        this.saveTouch(this.STORAGE_LT_KEY, lt);
+      }
+
+      // 3. Decorate Outbound Affiliate Links
+      this.decorateOutboundLinks();
+    } catch (e) {
+      // Attribution fallback safe
+    }
+  },
+
+  parseTrafficSource() {
+    if (typeof window === 'undefined') return { source: 'direct', medium: 'none', campaign: '', referrer: '', hasExplicitMarketing: false };
+
+    const params = new URLSearchParams(window.location.search);
+    const utmSource = params.get('utm_source')?.trim();
+    const utmMedium = params.get('utm_medium')?.trim();
+    const utmCampaign = params.get('utm_campaign')?.trim();
+    const refParam = params.get('ref')?.trim();
+    const fromParam = params.get('from')?.trim();
+    const sourceParam = params.get('source')?.trim();
+
+    let source = utmSource || refParam || fromParam || sourceParam || '';
+    let medium = utmMedium || '';
+    let campaign = utmCampaign || '';
+    let hasExplicitMarketing = false;
+
+    if (source || medium || campaign) {
+      hasExplicitMarketing = true;
+      if (!medium) medium = refParam === 'share_card' ? 'viral_share' : 'campaign';
+      return {
+        source,
+        medium,
+        campaign,
+        referrer: document.referrer || '',
+        hasExplicitMarketing
+      };
+    }
+
+    // Parse Referrer if no explicit query parameters
+    const rawReferrer = document.referrer ? document.referrer.trim() : '';
+    if (!rawReferrer) {
+      return { source: 'direct', medium: 'none', campaign: '', referrer: '', hasExplicitMarketing: false };
+    }
+
+    try {
+      const refUrl = new URL(rawReferrer);
+      const currentHost = window.location.hostname;
+      if (refUrl.hostname === currentHost || refUrl.hostname.endsWith(`.${currentHost}`)) {
+        return { source: 'internal', medium: 'internal', campaign: '', referrer: rawReferrer, hasExplicitMarketing: false };
+      }
+
+      const host = refUrl.hostname.toLowerCase();
+      if (host.includes('reddit.')) {
+        source = 'reddit';
+        medium = 'social';
+      } else if (host.includes('google.')) {
+        source = 'google';
+        medium = 'organic';
+      } else if (host.includes('t.co') || host.includes('twitter.') || host.includes('x.com')) {
+        source = 'twitter';
+        medium = 'social';
+      } else if (host.includes('discord.')) {
+        source = 'discord';
+        medium = 'chat';
+      } else if (host.includes('youtube.')) {
+        source = 'youtube';
+        medium = 'video';
+      } else if (host.includes('tiktok.')) {
+        source = 'tiktok';
+        medium = 'social';
+      } else if (host.includes('bing.')) {
+        source = 'bing';
+        medium = 'organic';
+      } else if (host.includes('duckduckgo.')) {
+        source = 'duckduckgo';
+        medium = 'organic';
+      } else {
+        source = refUrl.hostname;
+        medium = 'referral';
+      }
+
+      return { source, medium, campaign: '', referrer: rawReferrer, hasExplicitMarketing: true };
+    } catch (e) {
+      return { source: 'referral', medium: 'referral', campaign: '', referrer: rawReferrer, hasExplicitMarketing: false };
+    }
+  },
+
+  saveTouch(key, data) {
+    try {
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch (e) {}
+  },
+
+  getStoredTouch(key) {
+    try {
+      const val = localStorage.getItem(key);
+      return val ? JSON.parse(val) : null;
+    } catch (e) {
+      return null;
+    }
+  },
+
+  getEffectiveAttribution() {
+    const lt = this.getStoredTouch(this.STORAGE_LT_KEY);
+    const ft = this.getStoredTouch(this.STORAGE_FT_KEY);
+    return {
+      firstSource: ft?.source || 'direct',
+      firstMedium: ft?.medium || 'none',
+      lastSource: lt?.source || ft?.source || 'direct',
+      lastMedium: lt?.medium || ft?.medium || 'none',
+      campaign: lt?.campaign || ft?.campaign || ''
+    };
+  },
+
+  // Dynamically decorate Eneba & monetization links with sub-tracking IDs
+  decorateOutboundLinks() {
+    const attr = this.getEffectiveAttribution();
+    document.querySelectorAll('.btn-vbucks').forEach(el => {
+      try {
+        const url = new URL(el.href);
+        url.searchParams.set('af_sub1', attr.lastSource);
+        url.searchParams.set('af_sub2', 'shop_token_calc');
+        url.searchParams.set('af_sub3', `${currentMode}_${chestsCount}`);
+        el.href = url.toString();
+      } catch (e) {}
+    });
+  },
+
+  // Apply viral incoming link presets (e.g. ?chests=2500&mode=squad)
+  handleUrlPresets() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const urlChests = params.get('chests') || params.get('c');
+      const urlMode = params.get('mode');
+
+      let applied = false;
+      if (urlMode === 'solo' || urlMode === 'squad') {
+        setMode(urlMode);
+      }
+      if (urlChests && !isNaN(parseInt(urlChests, 10))) {
+        const count = Math.max(0, parseInt(urlChests, 10));
+        chestInput.value = count;
+        updateCalculation();
+        applied = true;
+      }
+
+      if (applied && params.get('ref') === 'share_card') {
+        setTimeout(() => {
+          showToast(`🎯 Loaded shared streak: ${parseInt(urlChests, 10).toLocaleString()} chests! Testing your luck...`);
+        }, 600);
+      }
+    } catch (e) {}
+  }
+};
+
+// Track affiliate link clicks with attribution metadata
+function initAffiliateListeners() {
+  document.querySelectorAll('.btn-vbucks').forEach(el => {
+    el.addEventListener('click', () => {
+      Attribution.decorateOutboundLinks();
+      const attr = Attribution.getEffectiveAttribution();
+      sendGAEvent('affiliate_click', {
+        destination: 'eneba_vbucks',
+        attr_source: attr.lastSource,
+        attr_medium: attr.lastMedium,
+        chests_at_click: chestsCount,
+        mode: currentMode
+      });
+    });
+  });
+
+  document.querySelectorAll('.btn-coffee').forEach(el => {
+    el.addEventListener('click', () => {
+      const attr = Attribution.getEffectiveAttribution();
+      sendGAEvent('donate_click', {
+        destination: 'buymeacoffee',
+        attr_source: attr.lastSource
+      });
+    });
+  });
+}
+
 // Setup Event Listeners
 function initEventListeners() {
-  soloModeBtn.addEventListener('click', () => setMode('solo'));
-  squadModeBtn.addEventListener('click', () => setMode('squad'));
+  soloModeBtn.addEventListener('click', () => {
+    setMode('solo');
+    Attribution.decorateOutboundLinks();
+  });
+  squadModeBtn.addEventListener('click', () => {
+    setMode('squad');
+    Attribution.decorateOutboundLinks();
+  });
 
-  chestInput.addEventListener('input', updateCalculation);
+  chestInput.addEventListener('input', () => {
+    updateCalculation();
+    Attribution.decorateOutboundLinks();
+  });
+
   calculateBtn.addEventListener('click', () => {
     playTone(550, 'sine', 0.08);
     updateCalculation();
+    Attribution.decorateOutboundLinks();
     sendGAEvent('calculate_odds', { chest_count: parseInt(chestInput.value, 10) || 0, mode: currentMode });
   });
 
@@ -322,12 +557,7 @@ function initEventListeners() {
     sendGAEvent('copy_share_report', { chest_count: parseInt(chestInput.value, 10) || 0 });
   });
 
-  // Track affiliate link clicks
-  document.querySelectorAll('.btn-vbucks').forEach(el => {
-    el.addEventListener('click', () => {
-      sendGAEvent('affiliate_click', { destination: 'eneba_vbucks' });
-    });
-  });
+  initAffiliateListeners();
 
   // Stepper Buttons (+50, +250, +1000, Reset)
   document.querySelectorAll('.step-btn').forEach(btn => {
@@ -341,6 +571,7 @@ function initEventListeners() {
       }
       playTone(400, 'sine', 0.05);
       updateCalculation();
+      Attribution.decorateOutboundLinks();
     });
   });
 
@@ -362,11 +593,18 @@ function initEventListeners() {
   });
 }
 
-// GA4 Custom Event Dispatcher
+// GA4 Custom Event Dispatcher with auto-enriched Attribution dimensions
 function sendGAEvent(eventName, params = {}) {
   try {
     if (typeof window.gtag === 'function') {
-      window.gtag('event', eventName, params);
+      const attr = Attribution.getEffectiveAttribution();
+      const enrichedParams = {
+        traffic_source: attr.lastSource,
+        traffic_medium: attr.lastMedium,
+        traffic_first_source: attr.firstSource,
+        ...params
+      };
+      window.gtag('event', eventName, enrichedParams);
     }
   } catch (e) {
     // Analytics fallback
@@ -378,4 +616,8 @@ document.addEventListener('DOMContentLoaded', () => {
   chestInput.value = 250; // Default illustrative seed
   updateCalculation();
   initEventListeners();
+
+  // Initialize attribution and URL presets
+  Attribution.init();
+  Attribution.handleUrlPresets();
 });

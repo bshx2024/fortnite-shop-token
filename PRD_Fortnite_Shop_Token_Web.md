@@ -34,12 +34,18 @@
 * **场景与实体词**：`chest`, `lantern landing`, `solo vs squad`, `14 days free`
 * **长尾问答词**：`how to get`, `is it real`, `code`, `free`, `reddit`
 
-### 3.3 GEO 专属资产部署
+### 3.3 GEO 专属资产部署与边缘实时雷达
 * **根目录 `/llms.txt`**：为大模型准备的纯文本无渲染知识摘要（包含精确掉率、队伍机制、除外规则）。
 * **`robots.txt`**：显式 Allow `GPTBot`, `PerplexityBot`, `ClaudeBot`, `Google-Extended`, `Bytespider`。
 * **结构化数据 (JSON-LD)**：
   * `@type: WebApplication` 声明工具属性
   * `@type: FAQPage` 嵌套四大 PAA 官方问答
+* **边缘 GEO & 爬虫实时侦听雷达 (`Edge GEO Radar`)**：
+  * 依托 Cloudflare 边缘中间件 (`functions/_middleware.js` / `worker.js`) 实现 0 延迟秒级感知；
+  * 实时识别与分级 20+ 主流爬虫：GEO/AI 检索爬虫 (ChatGPT Search, Perplexity, Claude, Gemini)、核心搜索引擎 (Googlebot, Bingbot)、SEO 抓取器 (Ahrefs, Semrush)；
+  * 支持配置 Discord/Telegram Webhook 实时推送抓取事件（特别针对 `/llms.txt` 命中）；
+  * 边缘安全过滤：拦截常见恶意漏洞探测器（`.env`, `wp-`, `.git` 等）；
+  * 诊断端点：提供 `/api/crawl-status` 实时查看边缘近期抓取环形缓冲。
 
 ---
 
@@ -91,8 +97,14 @@
 
 ### 模块六：变现与反哺机制 (Monetization & Conversion)
 1. **合规提示与平替引导**：在强调 1/70 万极低几率下方，设置“非酋自救通道”——折扣 V-Bucks 礼品卡返利入口（Eneba / CDKeys 联盟渠道）。
-2. **社区打赏挂件**：底部配置极简优雅的 *“Buy Me a Coffee”* 赞助组件。
-3. **私域/外链回流**：预留跳转官方 Discord/Reddit 原始讨论帖的高质量外链。
+2. **第一方渠道归因与出站穿透 (Attribution & Sub-ID Tracking)**：
+   * 采用第一方轻量归因引擎（首触 FT 永久记忆 + 末触 LT 30 天更新），智能分类 `reddit`, `google`, `twitter`, `discord`, `tiktok` 等流量源头；
+   * 出站联盟链接（`.btn-vbucks`）动态拼接 `af_sub1`（末触渠道）、`af_sub2`（位置标签 `shop_token_calc`）、`af_sub3`（当前模式与开箱数），实现联盟后台精准订单收益溯源。
+3. **社交战报带参裂变回流 (Viral Parameter Presets)**：
+   * 复制战报自动附加 `?ref=share_card&from=social&chests=${n}&mode=${currentMode}`；
+   * 新访客从 Reddit/Discord 点入时，自动预填好友开箱进度并弹窗呼应，打通社媒裂变全链路闭环。
+4. **社区打赏挂件**：底部配置极简优雅的 *“Buy Me a Coffee”* 赞助组件。
+5. **私域/外链回流**：预留跳转官方 Discord/Reddit 原始讨论帖的高质量外链。
 
 ---
 
@@ -101,7 +113,7 @@
 ### 5.1 技术栈选型
 * **Core**：原生 HTML5 + 现代化 Vanilla CSS + 原生 ES6+ JavaScript。
 * **零外部臃肿依赖**：不引入庞大 UI 框架，确保单文件体积轻量（< 150KB，Gzip 后 < 40KB）。
-* **部署目标**：Cloudflare Pages / Vercel（全球 CDN 边缘加速）。
+* **部署目标**：Vercel / Cloudflare Pages（全球 CDN 边缘加速，已完成 Vercel Edge Middleware 与 Cloudflare Worker 双平台原生适配）。
 
 ### 5.2 视觉与 UI 设计规范
 * **风格**：Dark Glassmorphism（堡垒之夜电竞暗色毛玻璃风格）。
@@ -115,11 +127,13 @@
 ### 5.3 性能与合规指标
 * **Lighthouse 性能得分**：Performance >= 95，SEO = 100，Accessibility >= 90。
 * **加载速度**：FCP (First Contentful Paint) < 0.4s，TTFB < 50ms。
-* **分析埋点**：预留 Google Analytics 4 (GA4) 核心交互事件埋点：
-  * `calculate_odds_click`（计算器触发）
-  * `simulate_100_chests_click`（模拟开箱触发）
-  * `copy_share_card_click`（战报复制触发）
-  * `affiliate_link_click`（出站转化点击）
+* **分析埋点与渠道归因**：
+  * 全局 GA4 事件自动注入第一方归因维度：`traffic_source`（末触渠道）、`traffic_medium`（触点媒介）、`traffic_first_source`（首触源头）；
+  * `calculate_odds`（计算器触发，含开箱数与模式）；
+  * `simulate_100_chests`（模拟开箱触发）；
+  * `copy_share_report`（战报复制触发）；
+  * `affiliate_click`（出站转化点击，含目标平台、归因渠道与实时开箱数）；
+  * `donate_click`（打赏点击）。
 
 ---
 

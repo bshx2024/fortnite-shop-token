@@ -309,10 +309,25 @@ function initEventListeners() {
   calculateBtn.addEventListener('click', () => {
     playTone(550, 'sine', 0.08);
     updateCalculation();
+    sendGAEvent('calculate_odds', { chest_count: parseInt(chestInput.value, 10) || 0, mode: currentMode });
   });
 
-  simulateBtn.addEventListener('click', simulate100Chests);
-  shareBtn.addEventListener('click', generateShareCard);
+  simulateBtn.addEventListener('click', () => {
+    simulate100Chests();
+    sendGAEvent('simulate_100_chests', { mode: currentMode });
+  });
+
+  shareBtn.addEventListener('click', () => {
+    generateShareCard();
+    sendGAEvent('copy_share_report', { chest_count: parseInt(chestInput.value, 10) || 0 });
+  });
+
+  // Track affiliate link clicks
+  document.querySelectorAll('.btn-vbucks').forEach(el => {
+    el.addEventListener('click', () => {
+      sendGAEvent('affiliate_click', { destination: 'eneba_vbucks' });
+    });
+  });
 
   // Stepper Buttons (+50, +250, +1000, Reset)
   document.querySelectorAll('.step-btn').forEach(btn => {
@@ -341,9 +356,21 @@ function initEventListeners() {
       if (!isActive) {
         item.classList.add('active');
         playTone(320, 'sine', 0.04);
+        sendGAEvent('faq_expand', { question: btn.textContent.trim().slice(0, 50) });
       }
     });
   });
+}
+
+// GA4 Custom Event Dispatcher
+function sendGAEvent(eventName, params = {}) {
+  try {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', eventName, params);
+    }
+  } catch (e) {
+    // Analytics fallback
+  }
 }
 
 // Initial Boot

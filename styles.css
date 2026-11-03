@@ -208,10 +208,26 @@ body {
 
 .hero-desc {
   max-width: 680px;
-  margin: 0 auto 28px;
+  margin: 0 auto 16px;
   color: var(--text-muted);
   font-size: 1.1rem;
   line-height: 1.6;
+}
+
+.hero-subhook {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 71, 87, 0.1);
+  border: 1px solid rgba(255, 71, 87, 0.35);
+  color: #ff6b81;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 9999px;
+  margin-bottom: 32px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(255, 71, 87, 0.18);
 }
 
 /* Hero Visual Banner (taste-skill substance & immersion) */

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Title (Targeting high-volume autocomplete & PAA keywords) -->
+  <title>Fortnite Shop Token Odds: Drop Chance, Rarity & Chest Calculator</title>
+
+  <!-- Meta Description -->
+  <meta name="description" content="What are the chances of getting the Pirate Shop Token in Fortnite? The actual chest drop rate is 1 in 700,000 (0.00014%). Use our interactive Fortnite shop token odds calculator to test your luck, calculate squad drop rates, and find the fastest chest routes.">
+  <meta name="keywords" content="fortnite shop token, fortnite shop token odds, fortnite pirate shop token chance, fortnite shop token rarity, fortnite shop token drop chance, fortnite shop token chest, how rare is the pirate shop token, item shop token fortnite">
+  <link rel="canonical" href="https://fortniteshoptoken.gg/">
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Fortnite Shop Token Odds: Drop Chance, Rarity & Chest Calculator">
+  <meta property="og:description" content="Find out your real statistical chances of hitting the 1 in 700,000 Pirate Shop Token from Fortnite chests. Test your luck with our interactive simulator!">
+  <meta property="og:url" content="https://fortniteshoptoken.gg/">
+  <meta property="og:image" content="https://fortniteshoptoken.gg/og-banner.jpg">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Fortnite Shop Token Odds: Drop Chance & Calculator">
+  <meta name="twitter:description" content="What are your chances of hitting the 1 in 700,000 Fortnite Pirate Shop Token? Calculate your unluckiness and simulate 100 chests now.">
+
+  <!-- Fonts: Google Fonts Outfit (Display) & Inter (Body) & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Schema.org JSON-LD (GEO & Google Rich Snippets) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Fortnite Shop Token Odds Calculator",
+        "url": "https://fortniteshoptoken.gg/",
+        "applicationCategory": "GameUtility",
+        "operatingSystem": "All",
+        "description": "Interactive probability calculator and chest simulation engine for the Fortnite Pirate Shop Access Token drop rate."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What are the chances of getting the Pirate Shop token in Fortnite?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The drop rate is estimated at approximately 1 in 700,000 (0.00014%) per standard chest in solo play. When playing in a full 4-player squad, the squad buff increases collective team odds to roughly 1 in 175,000 (0.00057%) per chest opened."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can you get the Item Shop for free in Fortnite?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, finding the ultra-rare Pirate Shop Token grants 14 days of free access to claim virtually all cosmetics in the rotating Item Shop (including skins, pickaxes, gliders, and emotes). However, it excludes Battle Passes, real-money bundles, and gifting to friends."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How to get the Item Shop token in Fortnite?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Pirate Shop token is obtained purely by opening regular or rare treasure chests across the Battle Royale island during the Treasure Hunters season. Every standard chest has the exact same drop probability; optimizing for speed involves dropping at high-density areas like Lantern Landing."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there a Fortnite shop token code or glitch?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. There are no legitimate redeem codes, glitches, or web generators for the Fortnite Shop Token. It is an official server-side drop from chests only. Beware of phishing websites or Discord bots requesting your account authorization codes."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Ambient Grid Background -->
+  <div class="bg-grid"></div>
+
+  <!-- Live Status Sticky Bar -->
+  <div class="status-bar">
+    <div class="container status-content">
+      <div class="badge-live">
+        <span class="pulse-dot"></span>
+        <span>Live Season Event: Pirate Shop Token In-Game Now</span>
+      </div>
+      <div class="status-links">
+        <a href="#calculator">Odds Calculator</a>
+        <a href="#matrix">Drop Rate Matrix</a>
+        <a href="#routes">Speedrun Routes</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <header class="hero">
+      <div class="hero-pill">
+        <span>⚡ 1 IN 700,000 OFFICIAL DROP ODDS</span>
+      </div>
+      <h1 class="hero-title">
+        Fortnite Pirate Shop Token <br>
+        <span class="gradient-gold">Odds</span> & <span class="gradient-cyan">Drop Chance Calculator</span>
+      </h1>
+      <p class="hero-desc">
+        Calculate your true mathematical probability of unlocking the 14-day free Item Shop token from chests. Test your luck with our live simulation engine and benchmark your bad-luck streak.
+      </p>
+
+      <!-- Hero Visual Banner (taste-skill authentic world imagery) -->
+      <div class="hero-visual-wrapper">
+        <img src="assets/shop_token_hero.jpg" alt="Fortnite Mythic Chest Cracked Open with Floating Pirate Shop Token" class="hero-visual-img" fetchpriority="high">
+        <div class="hero-visual-overlay"></div>
+        <div class="hero-visual-badge">
+          <span>🏴‍☠️ IN-GAME EVENT: ULTRA-RARE SHOP TOKEN (1 IN 700K)</span>
+        </div>
+      </div>
+
+      <!-- ==========================================================================
+           Core Micro-App: The Odds & Pity Calculator
+           ========================================================================== -->
+      <section id="calculator" class="calculator-card">
+        <!-- Mode Switcher Tabs -->
+        <div class="mode-switcher" role="tablist">
+          <button id="soloModeBtn" class="mode-btn active" role="tab" aria-selected="true">
+            <span>Solo Mode</span>
+            <span class="mode-tag">1 in 700k</span>
+          </button>
+          <button id="squadModeBtn" class="mode-btn" role="tab" aria-selected="false">
+            <span>Squad Mode (Team Shared)</span>
+            <span class="mode-tag">1 in 175k</span>
+          </button>
+        </div>
+
+        <!-- Input Section -->
+        <div class="calc-inputs">
+          <div class="input-label-row">
+            <label for="chestInput" class="input-label">
+              <span>📦 Number of Chests You Opened</span>
+            </label>
+            <span class="input-hint">Enter your estimated count</span>
+          </div>
+
+          <div class="input-field-wrapper">
+            <input type="number" id="chestInput" class="chest-input" value="250" min="0" max="10000000" step="1">
+            <span class="input-unit">Chests</span>
+          </div>
+
+          <!-- Stepper Shortcuts -->
+          <div class="quick-steppers">
+            <button class="step-btn" data-step="50">+50</button>
+            <button class="step-btn" data-step="250">+250</button>
+            <button class="step-btn" data-step="1000">+1,000</button>
+            <button class="step-btn" data-step="5000">+5,000</button>
+            <button class="step-btn reset-btn" data-step="reset">↺ Reset</button>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-grid">
+          <button id="calculateBtn" class="btn-primary">
+            <span>⚡ Recalculate Odds</span>
+          </button>
+          <button id="simulateBtn" class="btn-secondary">
+            <span>🎲 Simulate 100 Chests</span>
+          </button>
+        </div>
+
+        <!-- Live Simulation Console (Animated Drop) -->
+        <div id="simulationBox" class="simulation-box">
+          <div class="sim-header">
+            <span id="simCount">Opening 100 Chests...</span>
+            <span>Real-time RNG Roll</span>
+          </div>
+          <div class="sim-progress-bar">
+            <div id="simProgressFill" class="sim-progress-fill"></div>
+          </div>
+          <div id="simLog" class="sim-log"></div>
+        </div>
+
+        <!-- Results Display Grid -->
+        <div class="results-grid">
+          <div class="stat-box highlight">
+            <div class="stat-title">Cumulative Chance</div>
+            <div id="oddsPercent" class="stat-value gold">0.0357%</div>
+            <div class="stat-caption">P = 1 - (1 - p)^n</div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-title">Bad-Luck Percentile</div>
+            <div id="percentile" class="stat-value cyan">0.04%</div>
+            <div class="stat-caption">Players who struck out before you</div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-title">Chests to 50% Median</div>
+            <div id="remainingMedian" class="stat-value">484,953</div>
+            <div class="stat-caption">Chests remaining for 50/50 odds</div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-title">Single Chest Odds</div>
+            <div id="singleOdds" class="stat-value">0.00014%</div>
+            <div class="stat-caption">Independent each roll</div>
+          </div>
+        </div>
+
+        <!-- Rank Card & Social Share -->
+        <div class="rank-card">
+          <div class="rank-info">
+            <div id="rankBadge" class="rank-badge">🧭</div>
+            <div class="rank-text">
+              <h4 id="rankTitle">Grinder in Training</h4>
+              <p id="rankDesc">The excitement is fading and reality is starting to kick in. Welcome to the statistical desert.</p>
+            </div>
+          </div>
+          <button id="shareBtn" class="share-btn">
+            <span>📋 Copy Bad-Luck Report</span>
+          </button>
+        </div>
+      </section>
+    </header>
+
+    <!-- ==========================================================================
+         Section 2: The Brutal Math & Drop Rate Matrix (GEO Friendly)
+         ========================================================================== -->
+    <section id="matrix" class="section">
+      <div class="section-title-wrap">
+        <div class="section-tag">Mathematical Calibration</div>
+        <h2 class="section-title">How Rare Is the Pirate Shop Token?</h2>
+        <p class="section-subtitle">
+          Independent probability analysis based on server-side drop tables and community sample sizes.
+        </p>
+      </div>
+
+      <div class="table-card">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Play Mode</th>
+              <th>Single Chest Probability</th>
+              <th>Decimal Rate</th>
+              <th>1,000 Chests Cumulative</th>
+              <th>50% Coin-Flip Threshold</th>
+              <th>Squad Mechanism</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Solo Battle Royale</strong></td>
+              <td><span class="code-pill">1 in 700,000</span></td>
+              <td>0.0001428%</td>
+              <td>~ 0.1428%</td>
+              <td>485,203 chests</td>
+              <td>Single roll per open</td>
+            </tr>
+            <tr>
+              <td><strong>Duo Team Buff</strong></td>
+              <td><span class="code-pill">1 in 350,000</span></td>
+              <td>0.0002857%</td>
+              <td>~ 0.2853%</td>
+              <td>242,602 chests</td>
+              <td>Team sharing applies</td>
+            </tr>
+            <tr>
+              <td><strong>Trio Team Buff</strong></td>
+              <td><span class="code-pill">1 in 233,333</span></td>
+              <td>0.0004285%</td>
+              <td>~ 0.4276%</td>
+              <td>161,735 chests</td>
+              <td>Team sharing applies</td>
+            </tr>
+            <tr>
+              <td><strong>Full Squad (4 Players)</strong></td>
+              <td><span class="code-pill" style="color: var(--cyan-primary);">1 in 175,000</span></td>
+              <td>0.0005714%</td>
+              <td>~ 0.5698%</td>
+              <td>121,301 chests</td>
+              <td>4x collective pool</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="methodology-box">
+          <strong>Statistical Methodology Note:</strong> Because each chest opening is an <em>independent Bernoulli trial</em>, opening 700,000 chests does <strong>not</strong> guarantee a token (it yields a 63.2% cumulative likelihood). There is no "bad-luck protection" or pity timer in Fortnite chests.
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Section 3: Speedrun Chest Routes
+         ========================================================================== -->
+    <section id="routes" class="section">
+      <div class="section-title-wrap">
+        <div class="section-tag">Farming Optimization</div>
+        <h2 class="section-title">Fastest Chest Speedrun Routes</h2>
+        <p class="section-subtitle">
+          All standard chests share identical drop rates. Maximizing your odds is strictly a game of chests opened per minute.
+        </p>
+      </div>
+
+      <!-- Tactical Speedrun Map Visual (taste-skill authentic world imagery) -->
+      <div class="map-visual-wrapper">
+        <img src="assets/speedrun_tactical_map.jpg" alt="Tactical Holographic Map of Fortnite Chest Speedrun Routes" class="map-visual-img" loading="lazy">
+        <div class="map-visual-caption">
+          <span>🗺️ Tactical Archipelago Zero: Skull Cove & Ruins Speedrun Rotations (20+ Chests / Run)</span>
+        </div>
+      </div>
+
+      <div class="routes-grid">
+        <div class="route-card">
+          <span class="route-rank">👑 Top Recommendation #1</span>
+          <h3 class="route-name">Lantern Landing</h3>
+          <div class="route-stat">
+            <span>Average Chests:</span>
+            <span>22 - 25 Chests</span>
+          </div>
+          <div class="route-stat">
+            <span>Time to Clear:</span>
+            <span>3 Minutes 15s</span>
+          </div>
+          <div class="route-stat">
+            <span>Enemy Friction:</span>
+            <span>Medium / High</span>
+          </div>
+          <p class="route-desc">
+            Land at the highest pagoda rooftop and spiral downwards through the buildings. Use ziplines to sweep the lower coastal shacks before opponents rotate in.
+          </p>
+        </div>
+
+        <div class="route-card">
+          <span class="route-rank">⚡ Safe Grinder Route #2</span>
+          <h3 class="route-name">Shipwreck Shallows</h3>
+          <div class="route-stat">
+            <span>Average Chests:</span>
+            <span>16 - 18 Chests</span>
+          </div>
+          <div class="route-stat">
+            <span>Time to Clear:</span>
+            <span>2 Minutes 40s</span>
+          </div>
+          <div class="route-stat">
+            <span>Enemy Friction:</span>
+            <span>Low</span>
+          </div>
+          <p class="route-desc">
+            Perfect for quiet solo speedruns. Land directly onto the half-submerged galleon and loot along the reef coastline without early gunfights.
+          </p>
+        </div>
+
+        <div class="route-card">
+          <span class="route-rank">🔄 Grinder Protocol #3</span>
+          <h3 class="route-name">The "Lobby-Reset" Method</h3>
+          <div class="route-stat">
+            <span>Strategy:</span>
+            <span>Loot & Leave</span>
+          </div>
+          <div class="route-stat">
+            <span>Hourly Yield:</span>
+            <span>~140 - 180 Chests/hr</span>
+          </div>
+          <div class="route-stat">
+            <span>Recommended Mode:</span>
+            <span>Squad Fill</span>
+          </div>
+          <p class="route-desc">
+            Queue into 4-player Squad Fill. Drop into your chosen POI, open all nearby chests, and immediately return to the lobby to restart.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Section 4: Rules & Limitations Matrix
+         ========================================================================== -->
+    <section class="section">
+      <div class="section-title-wrap">
+        <div class="section-tag">Item Shop Eligibility</div>
+        <h2 class="section-title">14-Day Free Access Rules & Exclusions</h2>
+        <p class="section-subtitle">
+          Know exactly what the Pirate Shop Token unlocks before you claim it.
+        </p>
+      </div>
+
+      <div class="rules-grid">
+        <div class="rule-box eligible">
+          <h3>✅ 100% Free to Claim (V-Bucks Bypassed)</h3>
+          <ul class="rule-list">
+            <li><strong>All Rotating Outfits (Skins):</strong> Marvel, DC, Gaming Legends, Icon Series, and Anime collabs.</li>
+            <li><strong>Emotes & Dances:</strong> Every icon emote and traversal dance available during the 14-day window.</li>
+            <li><strong>Pickaxes & Harvesting Tools:</strong> Any harvesting tool sold for V-Bucks in the shop.</li>
+            <li><strong>Gliders, Wraps & Jam Tracks:</strong> Festival Jam Tracks, instruments, and Rocket Racing car items.</li>
+            <li><strong>Bonus 2027 Token:</strong> You receive a secondary pass voucher valid for an additional 14 days in 2027.</li>
+          </ul>
+        </div>
+
+        <div class="rule-box excluded">
+          <h3>❌ Excluded Items (Token Does NOT Apply)</h3>
+          <ul class="rule-list">
+            <li><strong>Battle Pass & Level Skips:</strong> Cannot be used to unlock the seasonal Battle Pass.</li>
+            <li><strong>Real-Money Cash Bundles:</strong> Starter Packs, Quest Packs, or packs priced directly in fiat currency.</li>
+            <li><strong>Gifting to Friends:</strong> You cannot gift cosmetics to external accounts using token access.</li>
+            <li><strong>Fortnite Crew Subscription:</strong> Monthly recurring crew memberships are not included.</li>
+            <li><strong>Account Transfer:</strong> Tokens are permanently soulbound to the Epic account that found them.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Section 5: PAA Targeted FAQ (Featured Snippet Targeting)
+         ========================================================================== -->
+    <section id="faq" class="section">
+      <div class="section-title-wrap">
+        <div class="section-tag">Frequently Asked Questions</div>
+        <h2 class="section-title">People Also Ask About Fortnite Shop Token</h2>
+        <p class="section-subtitle">
+          Direct, verified answers to the community's most searched questions.
+        </p>
+      </div>
+
+      <div class="faq-wrap">
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span>What are the chances of getting the Pirate Shop token in Fortnite?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            The estimated drop rate is approximately <strong>1 in 700,000 (0.00014%)</strong> per standard treasure chest in solo play. When playing in a full 4-player squad, a team buff applies where if any player pulls the token, everyone gets it—effectively boosting collective team odds to roughly <strong>1 in 175,000 (0.00057%)</strong> per chest opened by your squad.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can you get the Item Shop for free in Fortnite?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Yes. Finding the Pirate Shop Access Token grants 14 days of free access to claim virtually all cosmetics (skins, pickaxes, emotes, and gliders) that rotate through the Item Shop without spending V-Bucks. However, real-money bundles, Battle Passes, and gifting items to other players are strictly excluded.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How to get the Item Shop token in Fortnite?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            The token drops randomly from standard and rare treasure chests on the Battle Royale map. Every normal chest has the exact same drop probability (there is no secret chest with higher odds). The best way to farm it is by speedrunning high-density chest landing areas like Lantern Landing or Shipwreck Shallows.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is there a Fortnite shop token code or glitch?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <strong>No, there are no valid redeem codes, secret web generators, or working glitches.</strong> The token drop is controlled strictly on Epic Games' secure game servers. Never paste your Epic Games authorization code, token, or password into third-party sites or Discord bots claiming to grant free shop tokens, as this is a common phishing scam.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Section 6: Monetization & Community Trust
+         ========================================================================== -->
+    <section class="monetization-box">
+      <h3 class="monetize-title">Tired of the 1 in 700,000 Chest Grind?</h3>
+      <p class="monetize-desc">
+        Opening 500,000 chests takes hundreds of hours of mind-numbing repetition. If you have your eye on a specific skin today, grab official discounted V-Bucks gift cards without risking your account on fake token generators.
+      </p>
+      <div class="cta-row">
+        <a href="https://www.eneba.com/store/fortnite-v-bucks" target="_blank" rel="noopener noreferrer" class="btn-vbucks">
+          <span>🏷️ Check Discounted V-Bucks Cards</span>
+        </a>
+        <a href="https://buymeacoffee.com" target="_blank" rel="noopener noreferrer" class="btn-coffee">
+          <span>☕ Support This Calculator</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#calculator">Calculator</a>
+        <a href="#matrix">Odds Matrix</a>
+        <a href="#routes">Speedrun Guide</a>
+        <a href="#faq">FAQ</a>
+        <a href="llms.txt" target="_blank">llms.txt (AI API)</a>
+        <a href="robots.txt" target="_blank">robots.txt</a>
+      </div>
+      <p class="disclaimer">
+        Disclaimer: This website is an independent fan-made analytical calculator and is not affiliated with, endorsed by, or sponsored by Epic Games, Inc. Fortnite is a registered trademark of Epic Games, Inc.
+      </p>
+      <p style="margin-top: 10px; font-size: 0.75rem;">
+        © 2026 Fortnite Shop Token Odds & Drop Chance Calculator. All data statistically modeled for educational purposes.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="toast">
+    <span>📋</span>
+    <span id="toastMsg">Copied Bad-Luck Report to clipboard!</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -27,6 +27,6 @@ User-agent: Bingbot
 Allow: /
 
 # Knowledge file reference for AI assistants
-# LLMs can read: https://fortniteshoptoken.gg/llms.txt
+# LLMs can read: https://www.fortniteshoptoken.com/llms.txt
 
-Sitemap: https://fortniteshoptoken.gg/sitemap.xml
+Sitemap: https://www.fortniteshoptoken.com/sitemap.xml
